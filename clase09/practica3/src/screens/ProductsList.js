@@ -1,5 +1,6 @@
 
 import React, {Component} from "react";
+import { FlatListComponent } from "react-native";
 import { FlatList } from "react-native";
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 
@@ -53,8 +54,7 @@ class ProductsList extends Component {
     render(){
           return(
         <View >
-            <Text> Lista de preguntas </Text>
-            <FlatList data={ this.state.lista } keyExtractor={ item => item.id.toString() }renderItem={ ({item}) => <Text>{item.title}</Text> }/>
+        
         </View>
     )
     }
