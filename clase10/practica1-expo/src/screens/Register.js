@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, Pressable, StyleSheet, TextInput } from "react-native";
+import { db, auth } from "../firebase/config";
 
 
 class Register extends Component {
@@ -12,9 +13,28 @@ class Register extends Component {
         }
     }
 
-      onSubmit() {
-    const { email, username, password } = this.state;
-    console.log("Datos de registro:", { email, username, password });
+      onSubmit(email, password, username) {
+        console.log(this.state);
+        
+    auth.createUserWithEmailAndPassword(email, password)
+    .then( response => {
+        console.log(response);
+        
+         this.setState({registered: true});
+        db.collection("users").add({
+            email: auth.currentUser.email,
+            name: this.state.username,
+            createdAt: Date.now(),
+        })
+        .then( r => console.log(r))
+        .catch( e => console.log(e))
+    this.props.navigation.navigate("Login")
+    })
+    .catch( error => { 
+        console.log(error);
+        
+        this.setState({error: "Fallo en el registro"})
+    })
   };
 
     render() {
@@ -42,7 +62,7 @@ class Register extends Component {
                      secureTextEntry={true}
                      onChangeText={text => this.setState({ password: text })}
                      value={this.state.password}/>
-                <Pressable style={styles.boton} onPress={ () => this.submit()}>
+                <Pressable style={styles.boton} onPress={ () => this.onSubmit(this.state.email, this.state.password)}>
                     <Text style={styles.texto}> Registrate </Text>
                 </Pressable>
             </View>

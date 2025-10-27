@@ -118,8 +118,10 @@ class ProductsAll extends Component {
     render(){
           return(
         <View style={styles.contenedor} >
-               <Text> Lista de preguntas </Text>
-                       <FlatList data={ this.state.lista } keyExtractor={ item => item.id.toString() }renderItem={ ({item}) => <Text>{item.title}</Text> }/>
+          <Text> Lista de preguntas </Text>
+          <FlatList data={ this.state.usuario } 
+          keyExtractor={ item => item.id.toString() }
+          renderItem={ ({item}) => <Text>{item.title}</Text> }/>
         </View>
     )
     }

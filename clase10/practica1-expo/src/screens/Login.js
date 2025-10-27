@@ -1,6 +1,7 @@
 
 import React, { Component } from "react";
 import { View, Text, Pressable, StyleSheet, TextInput } from "react-native";
+import { auth } from "../firebase/config";
 
 
 
@@ -11,13 +12,28 @@ class Login extends Component {
         this.state = {
              email: "",
             password: "",
+            error: ""
         }
     }
 
-      onSubmit() {
-    const { email, password } = this.state;
-    console.log("Datos de login:", { email, password });
-  };
+      onSubmit(email, password) {
+        if (!email.includes("@")) {
+            this.setState({error: "Email mal formateado"})
+        }
+        else if (password.length < 6 ) {
+            this.setState({error: "La password debe tener una longitud mínima de 6 caracteres"})
+        }
+        else {
+            auth.signInWithEmailAndPassword(email, password)
+        .then( response => { this.setState({loggedIn: true});
+        this.props.navigation.navigate("HomeMenu")
+        })
+        .catch( error => { this.setState({error: "Credenciales invalidas"})
+        })
+        }
+     
+      };
+ 
 
     render() {
         return (
@@ -45,7 +61,8 @@ class Login extends Component {
                      secureTextEntry={true}
                      onChangeText={text => this.setState({ password: text })}
                      value={this.state.password}/>
-                <Pressable style={styles.boton} onPress={ () => this.onSubmit()}>
+                <Pressable style={styles.boton} onPress={ () => this.onSubmit(this.state.email, this.state.password)}>
+                    <Text> { this.state.error }</Text>
                     <Text style={styles.texto}> Logueate </Text>
                 </Pressable>
             </View>
