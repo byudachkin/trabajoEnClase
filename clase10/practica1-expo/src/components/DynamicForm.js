@@ -33,7 +33,7 @@ class DynamicForm extends Component {
           onChangeText={(text) => this.setState({ comentario: text })}
         />
 
-        <Pressable style={styles.buton} onPress={this.onSubmit}>
+        <Pressable style={styles.boton} onPress={this.onSubmit}>
           <Text style={styles.texto}>Enviar</Text>
         </Pressable>
       </View>

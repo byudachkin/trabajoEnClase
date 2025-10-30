@@ -7,6 +7,9 @@ import Profile from "../screens/Profile";
 import Entypo from '@expo/vector-icons/Entypo';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Usuarios from "../screens/Usuarios";
+import Nuevopost from "../screens/Nuevopost";
+import AntDesign from '@expo/vector-icons/AntDesign';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -20,7 +23,10 @@ function HomeMenu() {
                     {tabBarIcon: () => <MaterialCommunityIcons name="face-woman-profile" size={24} color="black" /> }
                     }/>
                 <Tab.Screen name="Usuarios" component={ Usuarios }  options={
-                    {tabBarIcon: () => <MaterialCommunityIcons name="face-woman-profile" size={24} color="black" /> }
+                    {tabBarIcon: () => <AntDesign name="user" size={24} color="black" /> }
+                    }/>
+                    <Tab.Screen name="Nuevopost" component={ Nuevopost }  options={
+                    {tabBarIcon: () => <Entypo name="image" size={24} color="black" /> }
                     }/>
             </Tab.Navigator>
     )
